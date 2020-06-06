@@ -17,7 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText emailId, password;
     Button btnSignIn;
@@ -40,12 +40,12 @@ public class Login extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                 if( mFirebaseUser != null ){
-                    Toast.makeText(Login.this,"You are logged in",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(Login.this, HomeActivity.class);
+                    Toast.makeText(LoginActivity.this,"Has iniciado sesión",Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(i);
                 }
                 else{
-                    Toast.makeText(Login.this,"Please Login",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Por favor Iniciar sesión",Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -56,32 +56,32 @@ public class Login extends AppCompatActivity {
                 String email = emailId.getText().toString();
                 String pwd = password.getText().toString();
                 if(email.isEmpty()){
-                    emailId.setError("Please enter email id");
+                    emailId.setError("Por favor, introduzca la identificación del correo electrónico");
                     emailId.requestFocus();
                 }
                 else  if(pwd.isEmpty()){
-                    password.setError("Please enter your password");
+                    password.setError("Por favor, introduzca su contraseña");
                     password.requestFocus();
                 }
                 else  if(email.isEmpty() && pwd.isEmpty()){
-                    Toast.makeText(Login.this,"Fields Are Empty!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"¡Los campos están vacíos!",Toast.LENGTH_SHORT).show();
                 }
                 else  if(!(email.isEmpty() && pwd.isEmpty())){
-                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(Login.this,"Login Error, Please Login Again",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,"Error de inicio de sesión, vuelva a iniciar sesión",Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Intent intToHome = new Intent(Login.this,HomeActivity.class);
+                                Intent intToHome = new Intent(LoginActivity.this,HomeActivity.class);
                                 startActivity(intToHome);
                             }
                         }
                     });
                 }
                 else{
-                    Toast.makeText(Login.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"¡Se produjo un error!",Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intSignUp = new Intent(Login.this, MainActivity.class);
+                Intent intSignUp = new Intent(LoginActivity.this, RegistryActivity.class);
                 startActivity(intSignUp);
             }
         });
