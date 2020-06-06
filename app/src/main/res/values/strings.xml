@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">AppProyectoFinal</string>
+    <string name="app_name">TAKECAREPETS APP</string>
+
+    <string name="acercade">Acerca de</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">TAKECAREPETSAPP</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuracion</string>
+
+    <string name="menu_home">Inicio</string>
+
+    <string name="menu_nuevo">Nuevo</string>
+    <string name="menu_lista">Lista</string>
+    <string name="menu_desccripcion">Descripcion</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="home_second">Home Second</string>
+    <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
+
 </resources>

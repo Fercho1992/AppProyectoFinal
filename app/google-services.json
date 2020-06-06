@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "701099129696",
+    "firebase_url": "https://takecarepetsapp-7e62f.firebaseio.com",
+    "project_id": "takecarepetsapp-7e62f",
+    "storage_bucket": "takecarepetsapp-7e62f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701099129696:android:8892489a9f7188e883bc05",
+        "android_client_info": {
+          "package_name": "com.fernandomoya.appproyectofinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701099129696-d8goktle3qa864i00qs7f2i251qko2us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fernandomoya.appproyectofinal",
+            "certificate_hash": "8effc3715fb17f2654f9c3b4d4d8a83ead71b1fd"
+          }
+        },
+        {
+          "client_id": "701099129696-vj0i1fm9kvl8v1tkjilc4vimb0mn2i9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRG7TaAVV8ScYQEmfDZ-TM8TD-7ET5q_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701099129696-vj0i1fm9kvl8v1tkjilc4vimb0mn2i9u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
