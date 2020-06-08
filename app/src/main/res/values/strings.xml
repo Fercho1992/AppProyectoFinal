@@ -19,5 +19,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="home_second">Home Second</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
