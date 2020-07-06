@@ -24,14 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private  int MY_PERMISSIONS_REQUEST_READ_CONTACTS ;
-    Button btnLogout, btnMaps;
+    Button btnGuardar, btnMaps;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mDatabase;
     EditText descripcionP;
@@ -47,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //btnLogout = findViewById(R.id.logout);
-        // btnMaps.findViewById(R.id.btnMapa);
+        btnGuardar=findViewById(R.id.btnGuardar);
         lblSalir= findViewById(R.id.lblSalir);
 
         lblSalir.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +55,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         btnMaps=findViewById(R.id.btnMapa);
+        btnGuardar.setOnClickListener(this);
         btnMaps.setOnClickListener(this);
         inicializarFirebase();
     }
@@ -83,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
 
             //case R.id.button: Intent intent= new Intent(HomeActivity.this,MapsActivity.class);
-           case R.id.button:
+           case R.id.btnGuardar:
                if(ActivityCompat.checkSelfPermission(this,
                        Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
                        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){

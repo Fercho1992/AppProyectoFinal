@@ -1,5 +1,6 @@
 package com.fernandomoya.appproyectofinal;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
@@ -9,12 +10,23 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.EventListener;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    private DatabaseReference mDatabase;
+    private ArrayList<Marker> tmpMarker = new ArrayList<>();
+    private ArrayList<Marker> realMarker = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +35,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mDatabase= FirebaseDatabase.getInstance().getReference();
     }
 
 
@@ -40,8 +54,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        mDatabase.child("perros").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(Marker marker: realMarker){
+                    marker.remove();
+                }
+
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    MapsPerros mp= snapshot.getValue(MapsPerros.class);
+                    String latitud= mp.getLatitud().trim();
+                    String longitud=mp.getLongitud().trim();
+                    MarkerOptions markerOptions= new MarkerOptions();
+                    markerOptions.position(new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud)));
+                    tmpMarker.add(mMap.addMarker(markerOptions));
+                }
+
+                realMarker.clear();
+                realMarker.addAll(tmpMarker);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
