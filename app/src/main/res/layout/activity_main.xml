@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#d8000000"
+        android:background="#44000000"
         android:gravity="center"
         android:layout_height="match_parent">
     <EditText
@@ -47,22 +47,22 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:textColorHint="#ccc"
+        android:textColorHint="#d3d3d3"
         android:textColor="#fff"
         android:hint="Contraseña"
         android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:text="Regístrate"
-        android:textColor="#fff"
-        android:textSize="16sp"
-        android:elevation="5dp" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:elevation="5dp"
+            android:text="Regístrate"
+            android:textColor="#2c2c2c"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView"
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="¿Ya tienes una cuenta? Ingresar"
             android:textSize="16sp"
-            android:textColor="#fff" />
+            android:textColor="#d3d3d3" />
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -78,6 +78,6 @@
         android:fontFamily="sans-serif-black"
         android:text="Registro de usuarios"
         android:textSize="16sp"
-        android:textColor="#fff" />
+        android:textColor="#d3d3d3" />
     </LinearLayout>
 </RelativeLayout>

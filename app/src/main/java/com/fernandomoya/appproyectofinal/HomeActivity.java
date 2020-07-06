@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mDatabase;
     EditText descripcionP;
+    TextView lblSalir;
     Perros perros;
 
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -45,10 +46,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        btnLogout = findViewById(R.id.logout);
-        descripcionP= findViewById(R.id.editText3);
+        //btnLogout = findViewById(R.id.logout);
+        // btnMaps.findViewById(R.id.btnMapa);
+        lblSalir= findViewById(R.id.lblSalir);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        lblSalir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -57,7 +59,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        btnMaps=findViewById(R.id.button);
+        btnMaps=findViewById(R.id.btnMapa);
         btnMaps.setOnClickListener(this);
         inicializarFirebase();
     }
@@ -75,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-
+        descripcionP= findViewById(R.id.editText3);
 
 
         switch (view.getId()){
@@ -108,6 +110,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                limpiarCajas();
             //startActivity(intent);
 
+            break;
+
+            case R.id.btnMapa: Intent intent=  new Intent(HomeActivity.this,MapsActivity.class);
+            startActivity(intent);
             break;
         }
     }

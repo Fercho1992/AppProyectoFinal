@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#d8000000"
+        android:background="#44000000"
         android:gravity="center"
         android:layout_height="match_parent">
     <EditText
