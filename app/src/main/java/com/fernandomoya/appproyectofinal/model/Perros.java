@@ -1,21 +1,17 @@
 package com.fernandomoya.appproyectofinal.model;
 
+import androidx.annotation.NonNull;
+
 public class Perros {
 
     private String id;
     private String correo;
     private String password;
     private String descripcion;
-    private String latitud;
-    private String longitud;
+    private Double latitud;
+    private Double longitud;
 
-    public String getLatitud() {
-        return latitud;
-    }
 
-    public void setLatitud(String latitud) {
-        this.latitud = latitud;
-    }
 
     public String getId() {
         return id;
@@ -49,11 +45,24 @@ public class Perros {
         this.descripcion = descripcion;
     }
 
-    public String getLongitud() {
+
+    public Double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(Double latitud) {
+        this.latitud = latitud;
+    }
+
+    public Double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(String longitud) {
+    public void setLongitud(Double longitud) {
         this.longitud = longitud;
+    }
+
+    public String toString() {
+        return this.id+" "+descripcion+" "+latitud+" "+longitud;
     }
 }

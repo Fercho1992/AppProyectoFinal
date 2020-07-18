@@ -1,17 +1,23 @@
 package com.fernandomoya.appproyectofinal;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,29 +27,39 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private  int MY_PERMISSIONS_REQUEST_READ_CONTACTS ;
-    Button btnGuardar, btnMaps;
+    ImageButton btnGuardar, btnMaps,btnListar;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mDatabase;
     EditText descripcionP;
     TextView lblSalir;
-    Perros perros;
+    ListView listView;
+    ArrayList<String> arrayList= new ArrayList<>();
+
 
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FusedLocationProviderClient fusedLocationClient;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         //btnLogout = findViewById(R.id.logout);
-        btnGuardar=findViewById(R.id.btnGuardar);
+        btnGuardar=findViewById(R.id.imgBtnGuardar);
+        btnListar=findViewById(R.id.imgBtnListar);
         lblSalir= findViewById(R.id.lblSalir);
+        btnMaps=findViewById(R.id.imgBtnMapa);
 
         lblSalir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +70,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        btnMaps=findViewById(R.id.btnMapa);
         btnGuardar.setOnClickListener(this);
         btnMaps.setOnClickListener(this);
+        btnListar.setOnClickListener(this);
         inicializarFirebase();
+
     }
 
 
@@ -74,12 +91,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         descripcionP= findViewById(R.id.editText3);
-
-
         switch (view.getId()){
 
             //case R.id.button: Intent intent= new Intent(HomeActivity.this,MapsActivity.class);
-           case R.id.btnGuardar:
+           case R.id.imgBtnGuardar:
                if(ActivityCompat.checkSelfPermission(this,
                        Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
                        && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
@@ -95,8 +110,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                if (location != null) {
                                    Perros p= new Perros();
                                    p.setDescripcion(descripcionGeneral);
-                                   p.setLatitud(String.valueOf(location.getLatitude()));
-                                   p.setLongitud(String.valueOf(location.getLongitude()));
+                                   p.setLatitud(location.getLatitude());
+                                   p.setLongitud(location.getLongitude());
                                    Log.e("Latitud: ",+location.getLatitude()+" Longitud: "+ location.getLongitude()+" Descripcion: "+p.getDescripcion());
                                    mDatabase.child("perros").push().setValue(p);
                                    Toast.makeText(HomeActivity.this,"Agregado",Toast.LENGTH_SHORT).show();
@@ -108,9 +123,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             break;
 
-            case R.id.btnMapa: Intent intent=  new Intent(HomeActivity.this,MapsActivity.class);
-            startActivity(intent);
+            case R.id.imgBtnMapa: Intent intentMapa=  new Intent(HomeActivity.this,MapsActivity.class);
+            startActivity(intentMapa);
             break;
+
+            case R.id.imgBtnListar:Intent intentListar=  new Intent(HomeActivity.this,ListActivity.class);
+                startActivity(intentListar);
+
+
+                break;
         }
     }
 }

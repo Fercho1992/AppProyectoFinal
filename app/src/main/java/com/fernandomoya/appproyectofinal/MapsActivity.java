@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.fernandomoya.appproyectofinal.model.Perros;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -67,11 +69,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    MapsPerros mp= snapshot.getValue(MapsPerros.class);
-                    String latitud= mp.getLatitud().trim();
-                    String longitud=mp.getLongitud().trim();
+                    //Perros mp= snapshot.getValue(Perros.class);
+                    Double latitud= -0.458331;
+                    Log.i("latitud", latitud.toString()) ;
+                    Double longitud=-78.5605468;
+                    Log.i("longitud", longitud.toString());
                     MarkerOptions markerOptions= new MarkerOptions();
-                    markerOptions.position(new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud)));
+                    markerOptions.position(new LatLng(latitud, longitud));
                     tmpMarker.add(mMap.addMarker(markerOptions));
                 }
 
