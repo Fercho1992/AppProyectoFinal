@@ -2,11 +2,15 @@ package com.fernandomoya.appproyectofinal;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,26 +33,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements ItemClickListener{
 
     private RecyclerView rw;
-    List<Perros> listaPerros;
-
-    ListView myListView;
-    ArrayList<String> myArrayList= new ArrayList<>();
-    Apapter adapter;
+    private List<Perros> listaPerros;
+    private Apapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity);
-        rw= findViewById(R.id.recycleV);
-        rw.setLayoutManager(new LinearLayoutManager(this));
-        listaPerros= new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("perros");
-        adapter= new Apapter(listaPerros);
+        listaPerros= new ArrayList<>();
+        rw= findViewById(R.id.recycleV);
+        rw.setLayoutManager(new LinearLayoutManager(this));
+        rw.setItemAnimator(new DefaultItemAnimator());
+
+        adapter= new Apapter(listaPerros,R.layout.row_recycler,this);
         rw.setAdapter(adapter);
+        adapter.setClickListener(this);
         database.getReference().getRoot().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -69,6 +73,19 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+
+    @Override
+    public void onClick(View view, int position) {
+        Perros perros=listaPerros.get(position);
+        Intent i = new Intent(this, MapsActivity.class);
+        i.putExtra("descripcion", perros.getDescripcion());
+        i.putExtra("latitud", perros.getLatitud().toString());
+        i.putExtra("longitud", perros.getLongitud().toString());
+        Log.i("hello", perros.getDescripcion());
+        Log.i("latitud", perros.getLatitud().toString()) ;
+        Log.i("longitud", perros.getLongitud().toString());
+        startActivity(i);
     }
 }

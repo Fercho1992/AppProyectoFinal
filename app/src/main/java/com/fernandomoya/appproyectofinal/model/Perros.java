@@ -4,37 +4,12 @@ import androidx.annotation.NonNull;
 
 public class Perros {
 
-    private String id;
-    private String correo;
-    private String password;
+    private String url;
     private String descripcion;
     private Double latitud;
     private Double longitud;
 
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public Perros() {
     }
 
     public String getDescripcion() {
@@ -63,6 +38,14 @@ public class Perros {
     }
 
     public String toString() {
-        return this.id+" "+descripcion+" "+latitud+" "+longitud;
+        return descripcion+" "+latitud+" "+longitud;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

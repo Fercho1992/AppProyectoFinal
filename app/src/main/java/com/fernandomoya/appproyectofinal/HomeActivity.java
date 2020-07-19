@@ -1,66 +1,71 @@
 package com.fernandomoya.appproyectofinal;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.fernandomoya.appproyectofinal.model.Perros;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.net.URI;
+
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private  int MY_PERMISSIONS_REQUEST_READ_CONTACTS ;
-    ImageButton btnGuardar, btnMaps,btnListar;
+    private static final int PICK_IMAGE_REQUEST=1;
+    ImageView imgFoto;
+    ImageButton imgBtnCamera,btnGuardar,btnListar,btnGrupo;
+    Uri mImageURI;
     FirebaseDatabase firebaseDatabase;
+    StorageReference mStorageReference;
     DatabaseReference mDatabase;
-    EditText descripcionP;
-    TextView lblSalir;
-    ListView listView;
-    ArrayList<String> arrayList= new ArrayList<>();
-
-
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    StorageTask mUploadImg;
+    TextView lblSalir,descripcionP;
     private FusedLocationProviderClient fusedLocationClient;
 
-    @SuppressLint("WrongViewCast")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //btnLogout = findViewById(R.id.logout);
+        imgFoto = findViewById(R.id.imageView3);
+        imgBtnCamera = findViewById(R.id.imgBtnCamera);
         btnGuardar=findViewById(R.id.imgBtnGuardar);
         btnListar=findViewById(R.id.imgBtnListar);
         lblSalir= findViewById(R.id.lblSalir);
-        btnMaps=findViewById(R.id.imgBtnMapa);
-
+        btnGrupo= findViewById(R.id.imgBtnGrupoD);
+        descripcionP =findViewById(R.id.txtDescripcion);
         lblSalir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,8 +76,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         btnGuardar.setOnClickListener(this);
-        btnMaps.setOnClickListener(this);
+        btnGrupo.setOnClickListener(this);
         btnListar.setOnClickListener(this);
+        imgBtnCamera.setOnClickListener(this);
+
+        if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
+        }
+
         inicializarFirebase();
 
     }
@@ -82,15 +94,37 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = firebaseDatabase.getReference();
+        mStorageReference= FirebaseStorage.getInstance().getReference("perros");
     }
     private void limpiarCajas() {
         descripcionP.setText("");
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            mImageURI = data.getData();
+
+            Bitmap myBitmap= (Bitmap)data.getExtras().get("data");
+            imgFoto.setImageBitmap(myBitmap);
+
+        }
+    }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+
+
 
     @Override
     public void onClick(View view) {
-        descripcionP= findViewById(R.id.editText3);
+        descripcionP= findViewById(R.id.txtDescripcion);
         switch (view.getId()){
 
             //case R.id.button: Intent intent= new Intent(HomeActivity.this,MapsActivity.class);
@@ -106,31 +140,37 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                            @Override
                            public void onSuccess(Location location) {
-                               String descripcionGeneral =descripcionP.getText().toString();
+                               String descripcion=descripcionP.getText().toString();
+                               Log.i("descripcionGeneral",descripcion ) ;
+
+                               Perros p= new Perros();
                                if (location != null) {
-                                   Perros p= new Perros();
-                                   p.setDescripcion(descripcionGeneral);
+                                   p.setDescripcion(descripcion);
                                    p.setLatitud(location.getLatitude());
                                    p.setLongitud(location.getLongitude());
-                                   Log.e("Latitud: ",+location.getLatitude()+" Longitud: "+ location.getLongitude()+" Descripcion: "+p.getDescripcion());
+                                   //p.setUrl(mImageURI.toString());
                                    mDatabase.child("perros").push().setValue(p);
-                                   Toast.makeText(HomeActivity.this,"Agregado",Toast.LENGTH_SHORT).show();
                                }
+                               Toast.makeText(HomeActivity.this,"Agregado",Toast.LENGTH_SHORT).show();
                            }
                        });
-               limpiarCajas();
+               //limpiarCajas();
             //startActivity(intent);
 
             break;
 
-            case R.id.imgBtnMapa: Intent intentMapa=  new Intent(HomeActivity.this,MapsActivity.class);
-            startActivity(intentMapa);
-            break;
+
+            case R.id.imgBtnGrupoD: Intent intentGrupo=  new Intent(HomeActivity.this,AboutUsActivity.class);
+                startActivity(intentGrupo);
+                break;
 
             case R.id.imgBtnListar:Intent intentListar=  new Intent(HomeActivity.this,ListActivity.class);
                 startActivity(intentListar);
+                break;
 
-
+            case R.id.imgBtnCamera:
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent,PICK_IMAGE_REQUEST);
                 break;
         }
     }

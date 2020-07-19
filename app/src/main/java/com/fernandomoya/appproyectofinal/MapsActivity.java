@@ -3,14 +3,18 @@ package com.fernandomoya.appproyectofinal;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.fernandomoya.appproyectofinal.model.Perros;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -26,17 +30,22 @@ import java.util.EventListener;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private String descripcion,latitud,longitud;
     private DatabaseReference mDatabase;
     private ArrayList<Marker> tmpMarker = new ArrayList<>();
     private ArrayList<Marker> realMarker = new ArrayList<>();
+    Bundle infoList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
 
         mDatabase= FirebaseDatabase.getInstance().getReference();
     }
@@ -63,24 +72,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mDatabase.child("perros").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                infoList=getIntent().getExtras();
+                descripcion=infoList.getString("descripcion");
+                latitud=infoList.getString("latitud");
+                longitud=infoList.getString("longitud");
+                Log.i("latitud", latitud) ;
+                Log.i("longitud", longitud);
                 for(Marker marker: realMarker){
                     marker.remove();
                 }
 
+
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                     //Perros mp= snapshot.getValue(Perros.class);
-                    Double latitud= -0.458331;
-                    Log.i("latitud", latitud.toString()) ;
-                    Double longitud=-78.5605468;
-                    Log.i("longitud", longitud.toString());
                     MarkerOptions markerOptions= new MarkerOptions();
-                    markerOptions.position(new LatLng(latitud, longitud));
+                    markerOptions.position(new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud)));
+                    markerOptions.title(descripcion);
+                    markerOptions.snippet("Ubicación actual");
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    LatLng latLng = new LatLng(markerOptions.getPosition().latitude,markerOptions.getPosition().longitude);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 17);
+                    mMap.animateCamera(cameraUpdate);
                     tmpMarker.add(mMap.addMarker(markerOptions));
                 }
 
-                realMarker.clear();
-                realMarker.addAll(tmpMarker);
             }
 
             @Override

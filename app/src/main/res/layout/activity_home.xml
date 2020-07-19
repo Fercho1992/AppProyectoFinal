@@ -1,104 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeActivity">
-
-
-    <ImageButton
-        android:id="@+id/imgBtnMapa"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        android:layout_marginBottom="99dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnListar"
-        app:layout_constraintTop_toBottomOf="@+id/editText3"
-        app:srcCompat="@drawable/map" />
-
-    <ImageButton
-        android:id="@+id/imgBtnGuardar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginStart="54dp"
-        android:layout_marginLeft="54dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="96dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgBtnListar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/plus" />
-
-    <ImageButton
-        android:id="@+id/imgBtnListar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgBtnGuardar"
-        app:layout_constraintEnd_toStartOf="@+id/imgBtnMapa"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnGuardar"
-        app:layout_constraintTop_toTopOf="@+id/imgBtnGuardar"
-        app:srcCompat="@drawable/checklist" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="18dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Descripción"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/imgBtnMapa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="102dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="166dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgBtnGuardar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/animal" />
-
+    android:orientation="vertical">
     <TextView
         android:id="@+id/lblSalir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Cerrar sesión" />
 
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-        android:layout_marginBottom="50dp"
-        android:text="Cerrar sesión"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="283dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/animalkingdom" />
+
+        <ImageButton
+            android:id="@+id/imgBtnCamera"
+            android:layout_width="71dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_horizontal|end"
+            android:layout_marginLeft="-92dp"
+            android:layout_marginTop="180dp"
+            android:layout_toRightOf="@+id/imageView3"
+            android:background="@drawable/input"
+            app:srcCompat="@drawable/electronics" />
+
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/txtDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_gravity="center"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Descripción"
+        android:inputType="textMultiLine" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
+
+        <ImageButton
+            android:id="@+id/imgBtnGuardar"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+
+            android:background="@drawable/input"
+            app:srcCompat="@drawable/plus" />
+
+        <ImageButton
+            android:id="@+id/imgBtnListar"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_toRightOf="@+id/imgBtnGuardar"
+            android:background="@drawable/input"
+            app:srcCompat="@drawable/checklist" />
+
+        <ImageButton
+            android:id="@+id/imgBtnGrupoD"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:background="@drawable/input"
+            android:layout_toRightOf="@+id/imgBtnListar"
+            app:srcCompat="@drawable/equipo" />
+
+    </RelativeLayout>
+
+
+
+   </LinearLayout>
+
+
