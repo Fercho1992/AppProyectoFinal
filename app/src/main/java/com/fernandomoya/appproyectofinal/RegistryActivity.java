@@ -37,7 +37,7 @@ public class RegistryActivity extends AppCompatActivity {//ventana de logeo
                 String email = emailId.getText().toString();
                 String pwd = password.getText().toString();
                 if(email.isEmpty()){
-                    emailId.setError("Por favor, introduzca la identificación del correo electrónico");
+                    emailId.setError("Por favor, introduzca la dirección del correo electrónico");
                     emailId.requestFocus();
                 }
                 else  if(pwd.isEmpty()){
