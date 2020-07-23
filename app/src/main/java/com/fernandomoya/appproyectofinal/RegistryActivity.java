@@ -52,7 +52,7 @@ public class RegistryActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(RegistryActivity.this,"Registrarse sin éxito, por favor intente nuevamente",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistryActivity.this,"Registro sin éxito, por favor intente nuevamente",Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 startActivity(new Intent(RegistryActivity.this,HomeActivity.class));
