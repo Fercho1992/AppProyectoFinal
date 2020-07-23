@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        // Boton para acceder a la aplicacion 
+        // Boton para acceder a la aplicacion
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(LoginActivity.this,"Error, vuelva a iniciar sesión",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,"Error, vuelva a iniciar sesión.",Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 Intent intToHome = new Intent(LoginActivity.this,HomeActivity.class);
