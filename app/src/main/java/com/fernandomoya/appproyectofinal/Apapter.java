@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;// es una versión más avanzada y flexible de ListView 
 import com.fernandomoya.appproyectofinal.model.Perros;
 import java.util.List;
 
