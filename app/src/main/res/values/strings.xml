@@ -19,6 +19,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="home_second">Home Second</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
-    <string name="title_activity_maps">Map</string>
+
+    <string name="mensajeLogin">¿No tienes cuenta? Registrate aquí</string>
 
 </resources>
