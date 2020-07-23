@@ -73,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 infoList=getIntent().getExtras();
-                descripcion=infoList.getString("descripcion");
+                descripcion=infoList.getString("descripción");
                 latitud=infoList.getString("latitud");
                 longitud=infoList.getString("longitud");
                 Log.i("latitud", latitud) ;
