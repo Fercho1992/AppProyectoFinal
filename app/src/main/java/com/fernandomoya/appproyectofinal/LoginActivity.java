@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,"Por favor Iniciar sesión",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Por favor iniciar sesión",Toast.LENGTH_SHORT).show();
                 }
             }
         };
