@@ -27,9 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.InputStreamReader;//InputStreamReader es un puente desde las secuencias de bytes a las secuencias de caracteres
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashMap; //HashMap es un diccionario de java contiene una serie de elementos que son la entrada que a su vez están formadas por un par (clave, valor). La clave kay permite acceder al valor. No puede haber clave duplicadas.
 import java.util.List;
 import java.util.Map;
 
