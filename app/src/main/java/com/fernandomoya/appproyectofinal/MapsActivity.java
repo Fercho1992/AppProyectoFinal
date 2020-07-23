@@ -83,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){ //Una instancia de DataSnapshot contiene datos de una ubicación de la base de datos de Firebase.
                     //Perros mp= snapshot.getValue(Perros.class);
                     MarkerOptions markerOptions= new MarkerOptions();
                     markerOptions.position(new LatLng(Double.parseDouble(latitud), Double.parseDouble(longitud)));
