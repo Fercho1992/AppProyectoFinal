@@ -61,6 +61,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    /**
+     * Manipula el mapa una vez disponible.
+     * Esta devolución de llamada se activa cuando el mapa está listo para ser utilizado.
+     * Aquí es donde podemos agregar marcadores o líneas, agregar oyentes o mover la cámara. En este caso,
+     * solo agregamos un marcador cerca de Sydney, Australia.
+     * Si los servicios de Google Play no están instalados en el dispositivo, se le solicitará al usuario que lo instale
+     * dentro del SupportMapFragment. Este método solo se activará una vez que el usuario tenga
+     * instaló los servicios de Google Play y regresó a la aplicación.
+     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
