@@ -68,9 +68,9 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿Ya tienes una cuenta? Ingresar"
-            android:textSize="16sp"
-            android:textColor="#d3d3d3" />
+            android:text="@string/mensajeRegistro"
+            android:textColor="#d3d3d3"
+            android:textSize="16sp" />
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"

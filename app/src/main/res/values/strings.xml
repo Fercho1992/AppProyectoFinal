@@ -21,5 +21,6 @@
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
 
     <string name="mensajeLogin">¿No tienes cuenta? Registrate aquí</string>
+    <string name="mensajeRegistro">¿Ya tienes una cuenta? Ingresa</string>
 
 </resources>
