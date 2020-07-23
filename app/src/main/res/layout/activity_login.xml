@@ -59,7 +59,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
             android:elevation="5dp"
-            android:text="Iniciar sesión"
+            android:text="@string/btnIniciarSesion"
             android:textColor="#fff"
             android:textSize="16sp" />
 

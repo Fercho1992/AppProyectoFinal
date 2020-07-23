@@ -22,5 +22,6 @@
 
     <string name="mensajeLogin">¿No tienes cuenta? Registrate aquí</string>
     <string name="mensajeRegistro">¿Ya tienes una cuenta? Ingresa</string>
+    <string name="btnIniciarSesion">Iniciar sesión</string>
 
 </resources>
