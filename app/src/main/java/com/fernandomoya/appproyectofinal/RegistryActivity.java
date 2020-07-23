@@ -16,17 +16,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegistryActivity extends AppCompatActivity {
+public class RegistryActivity extends AppCompatActivity {//ventana de logeo
     EditText emailId, password;
     Button btnSignUp;
     TextView tvSignIn;
-    FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mFirebaseAuth; //Firebase es un conjunto de herramientas orientadas a la creación de aplicaciones de alta calidad
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseAuth = FirebaseAuth.getInstance(); 
         emailId = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
         btnSignUp = findViewById(R.id.button2);
@@ -37,7 +37,7 @@ public class RegistryActivity extends AppCompatActivity {
                 String email = emailId.getText().toString();
                 String pwd = password.getText().toString();
                 if(email.isEmpty()){
-                    emailId.setError("Por favor, introduzca la identificación del correo electrónico");
+                    emailId.setError("Por favor, introduzca la dirección del correo electrónico");
                     emailId.requestFocus();
                 }
                 else  if(pwd.isEmpty()){
