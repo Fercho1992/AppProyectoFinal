@@ -28,7 +28,7 @@ public class Apapter extends RecyclerView.Adapter<Apapter.PerroViewHolder> {
         this.rowLayout = rowLayout;
         this.mContext = mContext;
     }
-
+    //Funciones para el Adapter
     @Override
     public PerroViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
