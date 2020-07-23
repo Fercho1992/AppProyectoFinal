@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-
+        // Boton para acceder a la aplicacion 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
