@@ -20,7 +20,7 @@ public class RegistryActivity extends AppCompatActivity {
     EditText emailId, password;
     Button btnSignUp;
     TextView tvSignIn;
-    FirebaseAuth mFirebaseAuth;
+    FirebaseAuth mFirebaseAuth; //Firebase es un conjunto de herramientas orientadas a la creación de aplicaciones de alta calidad
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
